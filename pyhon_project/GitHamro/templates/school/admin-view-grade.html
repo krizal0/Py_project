@@ -1,0 +1,78 @@
+{% extends 'school/adminbase.html' %}
+
+{% block content %}
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+
+    .table td, .table th {
+      vertical-align: middle;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<div class="container">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h6 class="panel-title">Grades for class {{ class }}</h6>
+      </div>
+      <table class="table table-hover" id="dev-table">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Student Roll</th>
+            <!-- {% for course in courses %}
+              <th>{{ course.name }}</th>
+            {% endfor %} -->
+            <th>Course</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+            
+              {% for course in courses %}
+            <tr>
+              <td>{{ student.get_name }}</td>
+              <td>{{ student.roll }}</td>  
+              <td>
+                  {{course.name}}
+                  <!-- {% if student in grade_records and course in grade_records %}
+                    {{ grade_records }}
+                  {% else %}
+                    Not Available
+                  {% endif %} -->
+                </td>
+                <td>
+                  {% for stud, cours, grade in grade_records %}
+                    {% if student == stud and course == cours %}
+                      {{ grade }}
+                    {% endif %}
+                  {% endfor %}
+                </td>
+            </tr>
+              {% endfor %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
